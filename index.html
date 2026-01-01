@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NANT Events – Home</title>
+<style>
+:root{--bg:#0b1020;--card:#111a33;--muted:#93a4c7;--text:#e8eeff;--accent:#6aa6ff;--border:#25325a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#070a14);color:var(--text);}
+header{padding:24px 16px;max-width:1100px;margin:0 auto;}
+h1{margin:0 0 6px;font-size:28px}
+p{margin:0;color:var(--muted);line-height:1.4}
+main{max-width:1100px;margin:0 auto;padding:0 16px 28px}
+.card{background:rgba(17,26,51,.92);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+a{color:var(--text);text-decoration:none}
+a:hover{color:var(--accent)}
+.small{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03)}
+.btn:hover{border-color:var(--accent)}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:10px 8px;border-bottom:1px solid rgba(37,50,90,.7);text-align:left;font-size:14px}
+th{color:var(--muted);font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+hr{border:none;border-top:1px solid rgba(37,50,90,.8);margin:16px 0}
+.notice{padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,255,255,.25);color:var(--muted)}
+.footer{max-width:1100px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="row">
+    <div>
+      <h1>NANT Events – Income & Expenses</h1>
+      <p>Current event is highlighted. Click any event to view details. Admins: go to <span class="badge">/admin</span> to update (login required).</p>
+    </div>
+    <a class="btn" href="/admin/">Admin Login</a>
+  </div>
+</header>
+
+<main>
+  <div id="alerts" class="notice" style="display:none;margin-bottom:12px"></div>
+  <div id="currentWrap" style="margin-bottom:14px"></div>
+  <h2 style="margin:10px 0 10px;font-size:18px">All Events</h2>
+  <div id="list" class="grid"></div>
+</main>
+
+<div class="footer">Tip: Share event links freely. Only <strong>/admin</strong> is protected.</div>
+
+<script>
+function money(x){
+  if(x === null || x === undefined || x === "") return "";
+  const n = Number(x);
+  if(Number.isNaN(n)) return String(x);
+  return n.toLocaleString(undefined,{style:"currency",currency:"AUD"});
+}
+function card(e){
+  const tag = e.isCurrent ? "⭐ Current" : (e.status ? e.status : "");
+  return `
+    <a href="event.html?id=${encodeURIComponent(e.id)}">
+      <div class="card">
+        <div class="row">
+          <div>
+            <div style="font-weight:800;font-size:16px;margin-bottom:4px">${e.name}</div>
+            <div class="small">Date: ${e.date || ""} • Sheet: ${e.sheet || ""}</div>
+          </div>
+          <div class="badge">${tag}</div>
+        </div>
+        <hr/>
+        <div class="small">
+          Income: <strong>${money(e.totalIncome)}</strong><br/>
+          Expenses: <strong>${money(e.totalExpenses)}</strong><br/>
+          Surplus/Deficit: <strong>${money(e.surplusDeficit)}</strong>
+        </div>
+      </div>
+    </a>
+  `;
+}
+async function load(){
+  const res = await fetch("data/events.json",{cache:"no-store"});
+  const data = await res.json();
+  const events = (data.events || []);
+  const currents = events.filter(e => e.isCurrent);
+  const current = currents[0] || null;
+
+  if(currents.length > 1){
+    const al = document.getElementById("alerts");
+    al.style.display = "block";
+    al.innerHTML = "⚠ Multiple events are marked as <b>Current</b>. Please fix in Admin (/admin).";
+  } else if(currents.length === 0){
+    const al = document.getElementById("alerts");
+    al.style.display = "block";
+    al.innerHTML = "⚠ No current event is set. Please set one in Admin (/admin).";
+  }
+
+  const currentWrap = document.getElementById("currentWrap");
+  if(current){
+    currentWrap.innerHTML = `
+      <h2 style="margin:0 0 10px;font-size:18px">Current Event</h2>
+      ${card(current)}
+    `;
+  } else {
+    currentWrap.innerHTML = "";
+  }
+
+  document.getElementById("list").innerHTML = events.map(card).join("");
+}
+load();
+</script>
+
+</body>
+</html>

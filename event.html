@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Event</title>
+<style>
+:root{--bg:#0b1020;--card:#111a33;--muted:#93a4c7;--text:#e8eeff;--accent:#6aa6ff;--border:#25325a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#070a14);color:var(--text);}
+header{padding:24px 16px;max-width:1100px;margin:0 auto;}
+h1{margin:0 0 6px;font-size:28px}
+p{margin:0;color:var(--muted);line-height:1.4}
+main{max-width:1100px;margin:0 auto;padding:0 16px 28px}
+.card{background:rgba(17,26,51,.92);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+a{color:var(--text);text-decoration:none}
+a:hover{color:var(--accent)}
+.small{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03)}
+.btn:hover{border-color:var(--accent)}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:10px 8px;border-bottom:1px solid rgba(37,50,90,.7);text-align:left;font-size:14px}
+th{color:var(--muted);font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+hr{border:none;border-top:1px solid rgba(37,50,90,.8);margin:16px 0}
+.notice{padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,255,255,.25);color:var(--muted)}
+.footer{max-width:1100px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="row">
+    <div>
+      <a class="btn" href="index.html">🏠 HOME</a>
+      <a class="btn" href="/admin/">Admin</a>
+    </div>
+    <div class="small" id="crumb"></div>
+  </div>
+</header>
+
+<main class="grid" style="grid-template-columns:1fr;gap:14px">
+  <div class="card">
+    <h1 id="title" style="margin:0 0 6px">Event</h1>
+    <div class="small" id="meta"></div>
+    <hr/>
+    <div class="small" id="totals"></div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:14px">
+    <div class="card">
+      <div class="row"><h2 style="margin:0;font-size:18px">Income</h2></div>
+      <div id="income"></div>
+    </div>
+    <div class="card">
+      <div class="row"><h2 style="margin:0;font-size:18px">Expenses</h2></div>
+      <div id="expenses"></div>
+    </div>
+  </div>
+</main>
+
+<div class="footer">Share this page link publicly. Admin edits happen in <strong>/admin</strong>.</div>
+
+<script>
+function getParam(name){
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
+}
+function money(x){
+  if(x === null || x === undefined || x === "") return "";
+  const n = Number(x);
+  if(Number.isNaN(n)) return String(x);
+  return n.toLocaleString(undefined,{style:"currency",currency:"AUD"});
+}
+function esc(s){
+  return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+function table(rows){
+  if(!rows || rows.length === 0) return "<p class='small'>No entries yet.</p>";
+  const head = `<tr><th>S.No</th><th>Details</th><th class="num">Qty</th><th class="num">Amt</th><th class="num">Total</th></tr>`;
+  const body = rows.map(r => `
+    <tr>
+      <td>${r.sn ?? ""}</td>
+      <td>${esc(r.details ?? "")}</td>
+      <td class="num">${r.qty ?? ""}</td>
+      <td class="num">${r.amt ?? ""}</td>
+      <td class="num">${r.total ?? ""}</td>
+    </tr>
+  `).join("");
+  return `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+}
+async function load(){
+  const id = getParam("id");
+  const res = await fetch("data/events.json",{cache:"no-store"});
+  const data = await res.json();
+  const event = (data.events || []).find(e => e.id === id);
+
+  if(!event){
+    document.getElementById("title").innerText = "Event not found";
+    document.getElementById("meta").innerText = "The link may be incorrect.";
+    return;
+  }
+
+  document.getElementById("crumb").innerText = event.isCurrent ? "⭐ Current event" : "";
+  document.getElementById("title").innerText = event.name;
+  document.getElementById("meta").innerText = `Date: ${event.date || ""} • Sheet: ${event.sheet || ""} • Status: ${event.status || ""}`;
+
+  document.getElementById("totals").innerHTML = `
+    Total Income: <strong>${money(event.totalIncome)}</strong> •
+    Total Expenses: <strong>${money(event.totalExpenses)}</strong> •
+    Surplus/Deficit: <strong>${money(event.surplusDeficit)}</strong>
+  `;
+
+  document.getElementById("income").innerHTML = table(event.income);
+  document.getElementById("expenses").innerHTML = table(event.expenses);
+}
+load();
+</script>
+
+</body>
+</html>

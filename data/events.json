@@ -1,0 +1,255 @@
+{
+  "events": [
+    {
+      "id": "dashain-2025",
+      "sheet": "Dashain 2025",
+      "name": "Teej Celebration 2025 / NANT Operation 2238",
+      "date": "2025-12-21",
+      "isCurrent": false,
+      "totalIncome": 1234.75,
+      "totalExpenses": 1234.75,
+      "surplusDeficit": 0.0,
+      "status": "Balanced",
+      "income": [
+        {
+          "sn": 1.0,
+          "details": "Unexpended Grant",
+          "qty": 1.0,
+          "amt": 1234.75,
+          "total": 1234.75
+        }
+      ],
+      "expenses": [
+        {
+          "sn": 1.0,
+          "details": "Kalpana Pandey",
+          "qty": 1.0,
+          "amt": 258.55,
+          "total": 258.55
+        },
+        {
+          "sn": 2.0,
+          "details": "Suman Sharma",
+          "qty": 1.0,
+          "amt": 15.99,
+          "total": 15.99
+        },
+        {
+          "sn": 3.0,
+          "details": "Sandhya Sigdel",
+          "qty": 1.0,
+          "amt": 4.5,
+          "total": 4.5
+        },
+        {
+          "sn": 5.0,
+          "details": "Roshan Khatiwada",
+          "qty": 1.0,
+          "amt": 50.98,
+          "total": 50.98
+        },
+        {
+          "sn": 6.0,
+          "details": "Luna Café",
+          "qty": 1.0,
+          "amt": 747.0,
+          "total": 747.0
+        },
+        {
+          "sn": 7.0,
+          "details": "Sandhya Sigdel",
+          "qty": 1.0,
+          "amt": 33.98,
+          "total": 33.98
+        },
+        {
+          "sn": 8.0,
+          "details": "Shanti Barmasakha",
+          "qty": 1.0,
+          "amt": 123.75,
+          "total": 123.75
+        }
+      ]
+    },
+    {
+      "id": "teej-2025",
+      "sheet": "Teej 2025",
+      "name": "Teej 2025",
+      "date": "",
+      "isCurrent": false,
+      "totalIncome": 0.0,
+      "totalExpenses": 0.0,
+      "surplusDeficit": 0.0,
+      "status": "Loss",
+      "income": [],
+      "expenses": []
+    },
+    {
+      "id": "lawn-tennis-2025",
+      "sheet": "Lawn Tennis 2025",
+      "name": "Lawn Tennis 2025",
+      "date": "",
+      "isCurrent": false,
+      "totalIncome": 0.0,
+      "totalExpenses": 0.0,
+      "surplusDeficit": 0.0,
+      "status": "Loss",
+      "income": [],
+      "expenses": []
+    },
+    {
+      "id": "janai-purnima-2025",
+      "sheet": "Janai Purnima 2025",
+      "name": "Janai Purnima 2025",
+      "date": "",
+      "isCurrent": false,
+      "totalIncome": 0.0,
+      "totalExpenses": 0.0,
+      "surplusDeficit": 0.0,
+      "status": "Loss",
+      "income": [],
+      "expenses": []
+    },
+    {
+      "id": "christmas-2025",
+      "sheet": "Christmas 2025",
+      "name": "Kids Christmas / Language and Cultural Class Account",
+      "date": "2025-12-21",
+      "isCurrent": false,
+      "totalIncome": 1234.75,
+      "totalExpenses": 1234.75,
+      "surplusDeficit": 0.0,
+      "status": "Balanced",
+      "income": [
+        {
+          "sn": 1.0,
+          "details": "Unexpended Grant",
+          "qty": 1.0,
+          "amt": 1234.75,
+          "total": 1234.75
+        }
+      ],
+      "expenses": [
+        {
+          "sn": 1.0,
+          "details": "Kalpana Pandey",
+          "qty": 1.0,
+          "amt": 258.55,
+          "total": 258.55
+        },
+        {
+          "sn": 2.0,
+          "details": "Suman Sharma",
+          "qty": 1.0,
+          "amt": 15.99,
+          "total": 15.99
+        },
+        {
+          "sn": 3.0,
+          "details": "Sandhya Sigdel",
+          "qty": 1.0,
+          "amt": 4.5,
+          "total": 4.5
+        },
+        {
+          "sn": 5.0,
+          "details": "Roshan Khatiwada",
+          "qty": 1.0,
+          "amt": 50.98,
+          "total": 50.98
+        },
+        {
+          "sn": 6.0,
+          "details": "Luna Café",
+          "qty": 1.0,
+          "amt": 747.0,
+          "total": 747.0
+        },
+        {
+          "sn": 7.0,
+          "details": "Sandhya Sigdel",
+          "qty": 1.0,
+          "amt": 33.98,
+          "total": 33.98
+        },
+        {
+          "sn": 8.0,
+          "details": "Shanti Barmasakha",
+          "qty": 1.0,
+          "amt": 123.75,
+          "total": 123.75
+        }
+      ]
+    },
+    {
+      "id": "maghe-sankranti-2025",
+      "sheet": "Maghe Sankranti 2025",
+      "name": "Maghe Sankranti",
+      "date": "2026-01-15",
+      "isCurrent": true,
+      "totalIncome": 0.0,
+      "totalExpenses": 900.0,
+      "surplusDeficit": -900.0,
+      "status": "Loss",
+      "income": [],
+      "expenses": [
+        {
+          "sn": 1.0,
+          "details": "Harmony hall Booking",
+          "qty": 1.0,
+          "amt": 900.0,
+          "total": 900.0
+        }
+      ]
+    },
+    {
+      "id": "topi-diwas-2026",
+      "sheet": "Topi Diwas 2026",
+      "name": "Topi Diwas / NANT Operation 2238",
+      "date": "2026-01-01",
+      "isCurrent": false,
+      "totalIncome": 0.0,
+      "totalExpenses": 684.0,
+      "surplusDeficit": -684.0,
+      "status": "Loss",
+      "income": [],
+      "expenses": [
+        {
+          "sn": 1.0,
+          "details": "Tea Machine Hire",
+          "qty": 1.0,
+          "amt": 50.0,
+          "total": 50.0
+        },
+        {
+          "sn": 2.0,
+          "details": "2 Pkt of Tea",
+          "qty": 2.0,
+          "amt": 22.0,
+          "total": 44.0
+        },
+        {
+          "sn": 3.0,
+          "details": "Paper Glass and Plates",
+          "qty": 1.0,
+          "amt": 40.0,
+          "total": 40.0
+        },
+        {
+          "sn": 4.0,
+          "details": "Mixed Platter",
+          "qty": 1.0,
+          "amt": 500.0,
+          "total": 500.0
+        },
+        {
+          "sn": 5.0,
+          "details": "Misc",
+          "qty": 1.0,
+          "amt": 50.0,
+          "total": 50.0
+        }
+      ]
+    }
+  ]
+}

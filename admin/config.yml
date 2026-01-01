@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "eventsdata"
+    label: "Events"
+    files:
+      - file: "data/events.json"
+        label: "All Events (Database)"
+        name: "events"
+        format: "json"
+        fields:
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.date}})"
+            fields:
+              - { label: "Event ID (unique)", name: "id", widget: "string" }
+              - { label: "Excel Sheet Name", name: "sheet", widget: "string", required: false }
+              - { label: "Event Name", name: "name", widget: "string" }
+              - { label: "Event Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Is Current Event?", name: "isCurrent", widget: "boolean", default: false }
+              - { label: "Status", name: "status", widget: "string", required: false }
+
+              - { label: "Total Income", name: "totalIncome", widget: "number", required: false, value_type: "float" }
+              - { label: "Total Expenses", name: "totalExpenses", widget: "number", required: false, value_type: "float" }
+              - { label: "Surplus/Deficit", name: "surplusDeficit", widget: "number", required: false, value_type: "float" }
+
+              - label: "Income Rows"
+                name: "income"
+                widget: "list"
+                fields:
+                  - { label: "S.No", name: "sn", widget: "number", required: false, value_type: "float" }
+                  - { label: "Details", name: "details", widget: "string" }
+                  - { label: "Qty", name: "qty", widget: "number", required: false, value_type: "float" }
+                  - { label: "Amt", name: "amt", widget: "number", required: false, value_type: "float" }
+                  - { label: "Total", name: "total", widget: "number", required: false, value_type: "float" }
+
+              - label: "Expense Rows"
+                name: "expenses"
+                widget: "list"
+                fields:
+                  - { label: "S.No", name: "sn", widget: "number", required: false, value_type: "float" }
+                  - { label: "Details", name: "details", widget: "string" }
+                  - { label: "Qty", name: "qty", widget: "number", required: false, value_type: "float" }
+                  - { label: "Amt", name: "amt", widget: "number", required: false, value_type: "float" }
+                  - { label: "Total", name: "total", widget: "number", required: false, value_type: "float" }
